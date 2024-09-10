@@ -10,8 +10,11 @@ public partial record SecondModel : INotifyPropertyChanged
 {
     public string Uid { get; set; } = "No tag detected";
 
+    private readonly IMessageBroker _messageBroker;
+
     public SecondModel(IMessageBroker messageBroker)
     {
+        _messageBroker = messageBroker;
         var subscriptionName = $"{nameof(SecondModel)}_{nameof(TagDiscovered)}";
         if (!messageBroker.CheckIfExists(subscriptionName))
         {
@@ -20,6 +23,16 @@ public partial record SecondModel : INotifyPropertyChanged
             }, subscriptionName);
         }
     }
+
+    /// <summary>
+    /// Simulates an NFC tag read
+    /// </summary>
+    /// <returns></returns>
+    public async Task SimulateReadAsync()
+    {
+        await _messageBroker.PostAsync(new TagDiscovered(Guid.NewGuid().ToString(), string.Empty));
+    }
+
 
     /// <summary>
     /// Handles an incoming NFC tag read

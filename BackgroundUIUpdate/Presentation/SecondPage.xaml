@@ -31,6 +31,8 @@
         VerticalAlignment="Center"
         FontSize="24"
         Margin="8" />
+      <Button Content="Simulate Read"
+              Command="{Binding SimulateReadAsync}"/>
     </StackPanel>
 
   </Grid>
