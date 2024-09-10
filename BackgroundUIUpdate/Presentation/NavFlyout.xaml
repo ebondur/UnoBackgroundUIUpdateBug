@@ -1,0 +1,38 @@
+﻿<Flyout
+    x:Class="BackgroundUIUpdate.Presentation.NavFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:themes="using:Uno.Themes"
+    xmlns:uen="using:Uno.Extensions.Navigation.UI"
+    mc:Ignorable="d"
+    Placement="Full"
+    FlyoutPresenterStyle="{StaticResource NavFlyoutPresenterStyle}">
+
+  <Grid RowSpacing="12"
+          Margin="20,0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <Image HorizontalAlignment="Center"
+             Width="150"
+             Height="150"
+             Source="../Assets/Icons/icon_foreground.png"
+             Margin="0,16"/>
+
+    <Button Grid.Row="1"
+            Content="Page 1"
+            uen:Navigation.Request="PageOne"
+            FontSize="24"
+            HorizontalAlignment="Left"
+            Style="{StaticResource TextButtonStyle}">
+      <themes:ControlExtensions.Icon>
+        <SymbolIcon Symbol="Accept"/>
+      </themes:ControlExtensions.Icon>
+    </Button>
+
+  </Grid>
+</Flyout>

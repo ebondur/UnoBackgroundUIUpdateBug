@@ -1,0 +1,74 @@
+﻿<Project Sdk="Uno.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0-android;net8.0;</TargetFrameworks>
+
+    <OutputType>Exe</OutputType>
+    <UnoSingleProject>true</UnoSingleProject>
+
+    <!-- Display name -->
+    <ApplicationTitle>BackgroundUIUpdate</ApplicationTitle>
+    <!-- App Identifier -->
+    <ApplicationId>com.TwoShoes.BackgroundUIUpdate</ApplicationId>
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <!-- Package Publisher -->
+    <ApplicationPublisher>Two Shoes</ApplicationPublisher>
+    <!-- Package Description -->
+    <Description>BackgroundUIUpdate powered by Uno Platform.</Description>
+    <!--
+      If you encounter this error message:
+
+        error NETSDK1148: A referenced assembly was compiled using a newer version of Microsoft.Windows.SDK.NET.dll.
+        Please update to a newer .NET SDK in order to reference this assembly.
+
+      This means that the two packages below must be aligned with the "build" version number of
+      the "Microsoft.Windows.SDK.BuildTools" package above, and the "revision" version number
+      must be the highest found in https://www.nuget.org/packages/Microsoft.Windows.SDK.NET.Ref.
+    -->
+    <!-- <WindowsSdkPackageVersion>10.0.22621.28</WindowsSdkPackageVersion> -->
+
+    <!--
+      UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
+      https://aka.platform.uno/singleproject-features
+    -->
+    <UnoFeatures>
+      Material;
+      Dsp;
+      Hosting;
+      Toolkit;
+      Logging;
+      MVUX;
+      Configuration;
+      Http;
+      Serialization;
+      Localization;
+      Navigation;
+      ThemeService;
+    </UnoFeatures>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\Icons\menu.png" />
+    <None Remove="Presentation\NavFlyout.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Presentation\NavFlyout.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Stark.MessageBroker" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Presentation\NavFlyout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Plugin.Permissions" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+    <PackageReference Include="Plugin.CurrentActivity" />
+  </ItemGroup>
+
+</Project>
