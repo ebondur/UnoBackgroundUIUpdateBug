@@ -1,8 +1,7 @@
 This Repo is a reproduction of a UI bug found while developing a production mobile application.
 
 # Prereq's
-- Android Device with NFC capabilities
-- At least one NFC Tag to be scanned
+- Android Emulator
 
 # Description
 Simply put, this bug occurs when a model is navigated to more than once and the UI updates orginate from a background thread. 
