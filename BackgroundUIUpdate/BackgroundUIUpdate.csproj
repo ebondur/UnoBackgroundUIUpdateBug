@@ -1,4 +1,4 @@
-﻿<Project Sdk="Uno.Sdk">
+<Project Sdk="Uno.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0-android;net8.0;</TargetFrameworks>
 
@@ -49,6 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\Icons\menu.png" />
+    <None Remove="Presentation\HallCrowdednessPage.xaml" />
     <None Remove="Presentation\NavFlyout.xaml" />
   </ItemGroup>
   <ItemGroup>

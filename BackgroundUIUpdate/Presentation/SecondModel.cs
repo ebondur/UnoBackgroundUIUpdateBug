@@ -8,20 +8,13 @@ namespace BackgroundUIUpdate.Presentation;
 
 public partial record SecondModel : INotifyPropertyChanged
 {
-    public string Uid { get; set; } = "No tag detected";
+    public string Uid { get; set; } = "Test";
 
     private readonly IMessageBroker _messageBroker;
 
     public SecondModel(IMessageBroker messageBroker)
     {
-        _messageBroker = messageBroker;
-        var subscriptionName = $"{nameof(SecondModel)}_{nameof(TagDiscovered)}";
-        if (!messageBroker.CheckIfExists(subscriptionName))
-        {
-            messageBroker.Subscribe<TagDiscovered>(async message => {
-                await OnTagDiscoveredAsync(message.Data.Uid);
-            }, subscriptionName);
-        }
+      _messageBroker = messageBroker;
     }
 
     /// <summary>
@@ -30,27 +23,7 @@ public partial record SecondModel : INotifyPropertyChanged
     /// <returns></returns>
     public async Task SimulateReadAsync()
     {
-        await _messageBroker.PostAsync(new TagDiscovered(Guid.NewGuid().ToString(), string.Empty));
-    }
-
-
-    /// <summary>
-    /// Handles an incoming NFC tag read
-    /// </summary>
-    /// <param name="uid"></param>
-    private async Task OnTagDiscoveredAsync(string uid)
-    {
-       Uid = uid;
-
-       if (MainThread.IsMainThread)
-       {
-            OnPropertyChanged(nameof(Uid));
-       }
-       else
-       {
-           await MainThread.InvokeOnMainThreadAsync(() =>
-               OnPropertyChanged(nameof(Uid)));
-       }
+        await ShellModel.HandleIncomingNfcTag(new TagDiscovered(Guid.NewGuid().ToString(), string.Empty));
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -58,5 +31,11 @@ public partial record SecondModel : INotifyPropertyChanged
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public void Save(string uid)
+    {
+        Uid = uid;
+        OnPropertyChanged(nameof(Uid));
     }
 }

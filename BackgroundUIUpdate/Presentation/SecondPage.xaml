@@ -33,6 +33,7 @@
         Margin="8" />
       <Button Content="Simulate Read"
               Command="{Binding SimulateReadAsync}"/>
+      <Button Visibility="Collapsed" x:Name="HiddenButton" Command="{Binding Save}"/>
     </StackPanel>
 
   </Grid>

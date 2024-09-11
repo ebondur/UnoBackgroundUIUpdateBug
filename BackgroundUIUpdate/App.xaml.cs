@@ -1,3 +1,4 @@
+using BackgroundUIUpdate.Services;
 using Stark.Messaging;
 using Uno.Resizetizer;
 
@@ -14,9 +15,9 @@ public partial class App : Application
     }
 
     protected Window? MainWindow { get; private set; }
-    protected IHost? Host { get; private set; }
+    public static IHost? Host { get; private set; }
 
-    protected async override void OnLaunched(LaunchActivatedEventArgs args)
+    protected override async void OnLaunched(LaunchActivatedEventArgs args)
     {
         var builder = this.CreateBuilder(args)
             // Add navigation support for toolkit controls such as TabBar and NavigationView
